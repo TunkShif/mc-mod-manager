@@ -44,6 +44,17 @@ defmodule McModManager.Config do
         %{state | "mod_list" => mod_list ++ [mod]}
       end)
 
+  @spec find_mod(String.t()) :: map
+  def find_mod(project_id), do: Enum.find(mod_list(), &(Map.get(&1, "project_id") == project_id))
+
+  @spec remove_mod(map) :: :ok
+  def remove_mod(mod),
+    do:
+      Agent.update(__MODULE__, fn state ->
+        mod_list = Map.get(state, "mod_list") |> List.delete(mod)
+        %{state | "mod_list" => mod_list}
+      end)
+
   @spec save :: :ok | {:error, atom}
   def save() do
     %{"game_folder" => game_folder, "mod_list" => mod_list} = Agent.get(__MODULE__, & &1)

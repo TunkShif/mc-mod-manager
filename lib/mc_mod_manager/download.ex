@@ -2,7 +2,7 @@ defmodule McModManager.Download do
   alias McModManager.Config
 
   @api_url "https://api.cfwidget.com/minecraft/mc-mods"
-  @spec get_project_info(String.t()) :: map()
+  @spec get_project_info(String.t()) :: {:ok, map} | {:error, any}
   def get_project_info(project_id) do
     url = "#{@api_url}/#{project_id}?version=#{Config.game_version()}"
 
@@ -11,12 +11,13 @@ defmodule McModManager.Download do
          {:ok, json} <- Jason.decode(body) do
       %{"id" => file_id, "name" => file_name, "version" => version} = Map.get(json, "download")
 
-      %{
-        "project_id" => project_id,
-        "file_name" => file_name,
-        "version" => version,
-        "file_id" => file_id
-      }
+      {:ok,
+       %{
+         "project_id" => project_id,
+         "file_name" => file_name,
+         "version" => version,
+         "file_id" => file_id
+       }}
     end
   end
 
@@ -45,7 +46,7 @@ defmodule McModManager.Download do
         {:ok, Map.get(response, :body)}
 
       _ ->
-        {:error, :unkown_error}
+        {:error, :not_found}
     end
   end
 
