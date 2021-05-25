@@ -35,9 +35,9 @@ Done!
 ## TODO
 
 * [x] install specific mod
-* [] do version check before download
-* [] remove installed mod
-* [] update installed mod
+* [ ] do version check before download
+* [ ] remove installed mod
+* [ ] update installed mod
 
 ## Requirements
 
