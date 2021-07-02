@@ -3,7 +3,7 @@ defmodule McModManager.CLI do
     Optimus.new!(
       name: "mmm",
       description: "Minecraft Mod Manager",
-      version: "0.0.1",
+      version: "0.1.1",
       author: "TunkShif tunkshif@foxmail.com",
       about: "package manager for minecraft mods",
       parse_double_dash: true,

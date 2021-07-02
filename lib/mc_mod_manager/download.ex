@@ -53,9 +53,9 @@ defmodule McModManager.Download do
   @download_url "https://media.forgecdn.net/files"
   defp get_download_url(%{"file_id" => file_id, "file_name" => file_name}) do
     import String, only: [slice: 2]
+    id_part_a = slice(to_string(file_id), 0..3)
+    id_part_b = slice(to_string(file_id), 4..6) |> String.trim_leading("0")
 
-    "#{@download_url}/#{slice(to_string(file_id), 0..3)}/#{slice(to_string(file_id), 4..6)}/#{
-      file_name
-    }"
+    "#{@download_url}/#{id_part_a}/#{id_part_b}/#{file_name}"
   end
 end
